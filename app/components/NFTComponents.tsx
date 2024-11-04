@@ -97,7 +97,7 @@ export default function MintComponents() {
           <NFTCard 
             contractAddress={`0x${address.substring(2)}`} 
             tokenId="1"
-            className="w-full h-full"
+            className="w-full h-full !border-0 !shadow-none"
           >
             <div className="aspect-square">
               <CachedNFTMedia contractAddress={`0x${address.substring(2)}`} />

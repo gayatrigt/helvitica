@@ -1,8 +1,9 @@
 'use client';
 
-import MintComponents from './components/MintComponents';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import NFTComponents from './components/NFTComponents';
+import MintComponent from './components/MintComponent';
 export default function Home() {
   return (
 
@@ -18,10 +19,14 @@ export default function Home() {
         </p>
       </div>
 
+      <div className="flex flex-col items-center p-12">
+          <MintComponent />
+      </div>
+
       {/* Mint components */}
-      <main className="flex min-h-screen flex-col items-center">
-          <MintComponents />
-      </main>
+      <div className="flex min-h-screen flex-col items-center">
+          <NFTComponents />
+      </div>
 
       {/* Footer */}
       <Footer />

@@ -7,7 +7,7 @@ import { coinbaseWallet } from 'wagmi/connectors';
 import { OnchainKitProvider } from '@coinbase/onchainkit';
 import { type ReactNode, useState } from 'react';
 import { type State, WagmiProvider } from 'wagmi';
-
+  
 const config = createConfig({
   chains: [base],
   connectors: [
@@ -27,6 +27,20 @@ const config = createConfig({
   },
 });
 
+// Create a wrapper component for OnchainKitProvider
+function OnchainKitWrapper({ children }: { children: ReactNode }) {
+  return (
+    <OnchainKitProvider
+      apiKey={process.env.NEXT_PUBLIC_ONCHAINKIT_API_KEY}
+      chain={base}
+      schemaId="0xB4E741B761D8B69103cc986F1B7Cd71Ed627f8CC000000000000000000000000"
+      config={{ appearance: { mode: 'auto', theme: 'base' } }}
+    >
+      {children}
+    </OnchainKitProvider>
+  );
+}
+
 export function Providers(props: {
   children: ReactNode;
   initialState?: State;
@@ -36,16 +50,9 @@ export function Providers(props: {
   return (
     <WagmiProvider config={config} initialState={props.initialState}>
       <QueryClientProvider client={queryClient}>
-        <OnchainKitProvider
-          apiKey={process.env.NEXT_PUBLIC_ONCHAINKIT_API_KEY}
-          chain={base}
-          config={{ appearance: { 
-            mode: 'auto',
-            theme: 'base',
-           } }}
-        >
+        <OnchainKitWrapper>
           {props.children}
-        </OnchainKitProvider>
+        </OnchainKitWrapper>
       </QueryClientProvider>
     </WagmiProvider>
   );
